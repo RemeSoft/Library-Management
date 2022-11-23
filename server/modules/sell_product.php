@@ -12,6 +12,11 @@ if (isset($_POST['submit'])) {
     } else {
         $product__code=$_POST['product__code'];
     }
+    if (empty($_POST['product__price'])) {
+        array_push($required__field,"Product Price");
+    } else {
+        $product__price=$_POST['product__price'];
+    }
     if (empty($_POST['customer__name'])) {
         array_push($required__field,"Customer Name");
     } else {
@@ -47,7 +52,8 @@ if (isset($_POST['submit'])) {
 
             if ($conn->query($sql) === TRUE) {
                 notifications("Product Sell Successfully","success");
-                $sql = "INSERT INTO history (product) VALUES ('$product__code')";
+                
+                $sql = "INSERT INTO history (product,price) VALUES ('$product__code','$product__price')";
                 mysqli_query($conn, $sql);
                 header("Location: http://localhost/library_management/index.php");
             } else {
@@ -56,15 +62,12 @@ if (isset($_POST['submit'])) {
             }
             $conn->close();
         }else{
-            echo "new Customer";
-
-
             $sql = "INSERT INTO customer (name,mobile,address,product)
             VALUES ('$customer__name','$customer__phone','$customer__address','$product__code')";
 
             if ($conn->query($sql) === TRUE) {
                 notifications("Product Sell Successfully","success");
-                $sql = "INSERT INTO history (product) VALUES ('$product__code')";
+                $sql = "INSERT INTO history (product,price) VALUES ('$product__code','$product__price')";
                 mysqli_query($conn, $sql);
                 header("Location: http://localhost/library_management/index.php");
             } else {

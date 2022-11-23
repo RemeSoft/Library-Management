@@ -25,7 +25,7 @@
             <div class="inputs__item">
                 <h5>TK</h5>
                 <input class="item__element combain" type="text" placeholder="Enter Price" name="product__price"
-                    value="<?=$book_data['price']?>" disabled>
+                    value="<?=$book_data['price']?>">
             </div>
         </div>
         <div class="inputs__item ">

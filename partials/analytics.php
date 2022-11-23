@@ -16,27 +16,12 @@
             //Total Revenue__________________
             $sql = "SELECT * FROM history";
             $runSql = mysqli_query($conn, $sql);
-            $total__product__arr = array();
-            $todays__product__arr = array();
             while ($sell = mysqli_fetch_assoc($runSql)){
-                $product__code = $sell['product'];
+                $total__revenue = $total__revenue + $sell['price'];
                 $date = date('Y-m-d');
                 if($sell['date'] == $date){
-                    array_push($todays__product__arr,$product__code);
+                    $todays__revenue = $todays__revenue + $sell['price'];
                 }
-                array_push($total__product__arr,$product__code);
-            }
-            foreach($total__product__arr as $product){
-                $sql = "SELECT price FROM product WHERE code = '$product'";
-                $runSql = mysqli_query($conn, $sql);
-                $product_data = mysqli_fetch_assoc($runSql);
-                $total__revenue = $total__revenue + $product_data['price'];
-            }
-            foreach($todays__product__arr as $product){
-                $sql = "SELECT price FROM product WHERE code = '$product'";
-                $runSql = mysqli_query($conn, $sql);
-                $product_data = mysqli_fetch_assoc($runSql);
-                $todays__revenue = $todays__revenue + $product_data['price'];
             }
         ?>
         <!-- >>>>> Component Analytics Start <<<<<<< -->
